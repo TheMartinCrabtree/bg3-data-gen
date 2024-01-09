@@ -22,7 +22,10 @@ const spellList = [
     spellSchool: "Conjuration",
     spellCost: "Action",
     spellDamage: "1d6",
+    spellDamageType: "Acid",
     savingThrow: "Dexterity",
+    spellHigherLevel:
+      "Damage increases to 2d6 at level 5, and 3d6 at level 10.",
     spellRange: 60, // in feet
     spellRaidus: 7, // in feet
   },
@@ -48,15 +51,6 @@ const Main = (props) => {
 
   return (
     <div>
-      <div>
-        <FileNavigator
-          data={gameData}
-          selected={selected}
-          setSelected={_updateSelected}
-        />
-        <ContentViewer bioData={gameData[selected]} />
-      </div>
-
       <div>
         <button onClick={() => setData(characterData)}>
           update data in state
