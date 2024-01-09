@@ -3,160 +3,59 @@ import styled from "styled-components";
 
 const characterData = [
   {
-    name: "angela",
-    class: "noclass",
-    bio: "pixie punk",
-    stats: {
-      str: 10,
-      dex: 10,
-      con: 10,
-      int: 10,
-      wis: 10,
-      cha: 10,
-    },
-    items: {
-      equipped: {
-        head: "",
-        body: "",
-        hands: "",
-        feet: "",
-        necklace: "",
-        rings: {
-          left: "",
-          right: "",
-        },
-        weapons: {
-          mainhand: "",
-          offhand: "",
-          ranged: "",
-        },
+    name: "cami",
+    userID: 123,
+    classes: [
+      {
+        class: "bard",
+        level: 7,
       },
-      backpack: {},
-    },
-  },
-  {
-    name: "camille",
-    class: "noclass",
-    bio: "fem fatale",
-    stats: {
-      str: 10,
-      dex: 10,
-      con: 10,
-      int: 10,
-      wis: 10,
-      cha: 10,
-    },
-    items: {
-      equipped: {
-        head: "",
-        body: "",
-        hands: "",
-        feet: "",
-        necklace: "",
-        rings: {
-          left: "",
-          right: "",
-        },
-        weapons: {
-          mainhand: "",
-          offhand: "",
-          ranged: "",
-        },
-      },
-      backpack: {},
-    },
-  },
-  {
-    name: "hari",
-    bio: "fem fatale",
-    class: "noclass",
-    stats: {
-      str: 10,
-      dex: 10,
-      con: 10,
-      int: 10,
-      wis: 10,
-      cha: 10,
-    },
-    items: {
-      equipped: {
-        head: "",
-        body: "",
-        hands: "",
-        feet: "",
-        necklace: "",
-        rings: {
-          left: "",
-          right: "",
-        },
-        weapons: {
-          mainhand: "",
-          offhand: "",
-          ranged: "",
-        },
-      },
-      backpack: {},
-    },
+    ],
   },
 ];
 
-const monsterData = [
+const spellList = [
   {
-    name: "goblin",
-    class: "runt",
-    bio: "runt",
-    stats: {
-      str: 8,
-      dex: 8,
-      con: 8,
-      int: 8,
-      wis: 8,
-      cha: 8,
-    },
-    items: {
-      equipped: {
-        head: "",
-        body: "",
-        hands: "",
-        feet: "",
-        necklace: "",
-        rings: {
-          left: "",
-          right: "",
-        },
-        weapons: {
-          mainhand: "",
-          offhand: "",
-          ranged: "",
-        },
-      },
-      backpack: {},
-    },
+    spellID: 1,
+    spellName: "Acid Splash",
+    spellLevel: 0,
+    spellSchool: "Conjuration",
+    spellCost: "Action",
+    spellDamage: "1d6",
+    savingThrow: "Dexterity",
+    spellRange: 60, // in feet
+    spellRaidus: 7, // in feet
   },
 ];
+
+const getLocalStorageData = () => {
+  let data = localStorage.getItem("bg3-game-data");
+  return data ? JSON.parse(data) : [];
+};
+
+const saveLocalStorageData = (data, updateCallback) => {
+  localStorage.setItem("bg3-game-data", JSON.stringify(data));
+  return updateCallback(getLocalStorageData());
+};
 
 const Main = (props) => {
   const [gameData, setData] = useState(getLocalStorageData);
   const [selected, setSelectedIndex] = useState(0);
-  // console.log("gameData", gameData);
-  // console.log("localStorage data", getLocalStorageData());
+
   const _updateSelected = (indexVal) => {
     setSelectedIndex(indexVal);
   };
 
   return (
-    <MainContainer>
-      <Header />
-      <MainNavBar />
-      <LayoutWrapper>
+    <div>
+      <div>
         <FileNavigator
           data={gameData}
           selected={selected}
           setSelected={_updateSelected}
         />
         <ContentViewer bioData={gameData[selected]} />
-      </LayoutWrapper>
-      <Footer />
+      </div>
 
       <div>
         <button onClick={() => setData(characterData)}>
@@ -176,12 +75,12 @@ const Main = (props) => {
           href={`data:text/json;charset=utf-8,${encodeURIComponent(
             JSON.stringify(gameData)
           )}`}
-          download={"game-data.json"}
+          download={"bg3-game-data.json"}
         >
           download JSON data
         </a>
       </div>
-    </MainContainer>
+    </div>
   );
 };
 
