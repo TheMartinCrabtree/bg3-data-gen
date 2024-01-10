@@ -2,12 +2,6 @@ import React, { ReactNode, useState } from "react";
 import styled from "styled-components";
 import SpellUpdater from "../SpellUpdater";
 
-const MainWrapper = styled.div`
-  background-color: black;
-  color: white;
-  height: 100vh;
-`;
-
 const characterData = [
   {
     name: "cami",
@@ -39,6 +33,15 @@ const spellList = [
   },
 ];
 
+const MainWrapper = styled.div`
+  background-color: black;
+  color: white;
+  height: 100vh;
+  padding: 2em;
+`;
+
+const ActivePaneWrapper = styled.div``;
+
 const getLocalStorageData = () => {
   let data = localStorage.getItem("bg3-game-data");
   return data ? JSON.parse(data) : [];
@@ -52,6 +55,10 @@ const saveLocalStorageData = (data, updateCallback) => {
 const Main = (props) => {
   const [usersData, setUserData] = useState(getLocalStorageData);
   const [selected, setSelectedIndex] = useState(0);
+  const [currentLayout, setCurrentLayout] = useState({
+    spellUpdater: false,
+  });
+  console.log("currentLayout", currentLayout);
 
   const _updateSelected = (indexVal) => {
     setSelectedIndex(indexVal);
@@ -74,6 +81,16 @@ const Main = (props) => {
 
       reader.readAsText(file);
     }
+  };
+
+  const toggleVisible = (toggledElement, event) => {
+    // need to add better exception handling
+    console.log("toggledElement", toggledElement);
+    toggledElement &&
+      setCurrentLayout({
+        ...currentLayout,
+        [toggledElement]: !currentLayout.toggledElement,
+      });
   };
 
   return (
@@ -105,7 +122,15 @@ const Main = (props) => {
         <input type="file" accept=".json" onChange={handleFileChange} />
       </div>
       <div>View Spells:</div>
-      <SpellUpdater />
+      <ActivePaneWrapper>
+        <button
+          disabled={currentLayout.spellUpdater}
+          onClick={() => toggleVisible("spellUpdater")}
+        >
+          Add Spell
+        </button>
+        <SpellUpdater isVisible={currentLayout.spellUpdater} />
+      </ActivePaneWrapper>
     </MainWrapper>
   );
 };
