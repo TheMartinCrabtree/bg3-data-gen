@@ -114,8 +114,10 @@ const SpellUpdater = (props) => {
       formDataArr &&
       formDataArr.map((fieldData) => {
         const { labelText, dataLabel } = fieldData;
+        const generatedKey =
+          window && window.crypto && window.crypto.randomUUID();
         return (
-          <FieldWrapper>
+          <FieldWrapper key={generatedKey}>
             <label>
               {`${labelText}:`}
               <input
