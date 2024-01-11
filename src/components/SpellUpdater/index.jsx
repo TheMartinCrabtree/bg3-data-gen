@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import styled from "styled-components";
 
 // const spellList = [
@@ -91,8 +91,10 @@ const FieldWrapper = styled.div``;
 
 const SpellUpdater = (props) => {
   const { isVisible } = props;
-  console.log("isVisible", isVisible);
   const [spellData, setSpellData] = useState(defaultSpellData);
+  useEffect(() => {
+    console.log("spellData", spellData);
+  }, [spellData]);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -114,8 +116,7 @@ const SpellUpdater = (props) => {
       formDataArr &&
       formDataArr.map((fieldData) => {
         const { labelText, dataLabel } = fieldData;
-        const generatedKey =
-          window && window.crypto && window.crypto.randomUUID();
+        const generatedKey = crypto.randomUUID();
         return (
           <FieldWrapper key={generatedKey}>
             <label>

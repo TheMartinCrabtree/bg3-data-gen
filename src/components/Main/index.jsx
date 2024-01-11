@@ -58,7 +58,6 @@ const Main = (props) => {
   const [currentLayout, setCurrentLayout] = useState({
     spellUpdater: false,
   });
-  console.log("currentLayout", currentLayout);
 
   const _updateSelected = (indexVal) => {
     setSelectedIndex(indexVal);
