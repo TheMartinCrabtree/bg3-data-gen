@@ -1,23 +1,6 @@
 import React, { ReactNode, useEffect, useState } from "react";
 import styled from "styled-components";
 
-// const spellList = [
-//   {
-//     spellID: 1,
-//     spellName: "Acid Splash",
-//     spellLevel: 0,
-//     spellSchool: "Conjuration",
-//     spellCost: "Action",
-//     spellDamage: "1d6",
-//     spellDamageType: "Acid",
-//     savingThrow: "Dexterity",
-//     spellHigherLevel:
-//       "Damage increases to 2d6 at level 5, and 3d6 at level 10.",
-//     spellRange: 60, // in feet
-//     spellRadius: 7, // in feet
-//     spellInfo: "Throw a bubble of acid that damages each creature it hits.",
-//   },
-// ];
 const formDataArr = [
   {
     labelText: "Spell Name",
@@ -93,15 +76,14 @@ function isUniqueSpellName(newSpell, existingSpells) {
   // validate spell does not exist before submitting
   return !existingSpells.some(
     (spell) =>
-      spell.spellName.toLowerCase() === newSpell.spellName.toLowerCase()
+      spell.spellName.replace(/\s/g, "").toLowerCase() ===
+      newSpell.spellName.replace(/\s/g, "").toLowerCase()
   );
 }
 
 const SpellUpdater = (props) => {
-  const { isVisible, spellsArr } = props;
+  const { isVisible, spellsArr, updateSpellList } = props;
   const [spellData, setSpellData] = useState(defaultSpellData);
-  const [formID, setFormID] = useState(crypto.randomUUID());
-  // const generatedKey = crypto.randomUUID();
   useEffect(() => {
     console.log("spellData", spellData);
   }, [spellData]);
@@ -124,7 +106,7 @@ const SpellUpdater = (props) => {
     console.log("Submitting form:", spellData);
     // Do something with the form data, e.g., send it to a server or perform validation
     isUniqueSpellName(spellData, spellsArr)
-      ? console.log("ok to submit")
+      ? updateSpellList([...spellsArr, spellData])
       : alert(`The ${spellData.spellName} already exists!`);
   };
 
@@ -134,7 +116,7 @@ const SpellUpdater = (props) => {
       formDataArr.map((fieldData, index) => {
         const { labelText, dataLabel } = fieldData;
         return (
-          <FieldWrapper key={`${dataLabel}${formID}`}>
+          <FieldWrapper key={`${dataLabel}${index}`}>
             <label>
               {`${labelText}:`}
               <input

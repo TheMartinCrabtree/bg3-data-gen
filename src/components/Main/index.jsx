@@ -15,7 +15,7 @@ const characterData = [
   },
 ];
 
-const spellList = [
+const defaultSpellList = [
   {
     spellID: 1,
     spellName: "Acid Splash",
@@ -40,6 +40,8 @@ const MainWrapper = styled.div`
   padding: 2em;
 `;
 
+const DevToolsWrapper = styled.div``;
+
 const ActivePaneWrapper = styled.div``;
 
 const getLocalStorageData = () => {
@@ -54,10 +56,14 @@ const saveLocalStorageData = (data, updateCallback) => {
 
 const Main = (props) => {
   const [usersData, setUserData] = useState([]);
+  const [spellList, setSpellList] = useState(defaultSpellList);
   const [selected, setSelectedIndex] = useState(0);
   const [currentLayout, setCurrentLayout] = useState({
+    devTools: false,
     spellUpdater: false,
   });
+  console.log("currentLayout", currentLayout);
+  console.log("spellList", spellList);
   useEffect(() => {
     console.log("initial load: checking local storage for data");
     !usersData[0] && getLocalStorageData();
@@ -88,42 +94,52 @@ const Main = (props) => {
 
   const toggleVisible = (toggledElement, event) => {
     // need to add better exception handling
-    console.log("toggledElement", toggledElement);
     toggledElement &&
       setCurrentLayout({
         ...currentLayout,
-        [toggledElement]: !currentLayout.toggledElement,
+        [toggledElement]: !currentLayout[toggledElement],
       });
   };
 
   return (
     <MainWrapper>
       <div>
-        <button onClick={() => setUserData(characterData)}>
-          update data in state
+        <button onClick={() => toggleVisible("devTools")}>
+          Show/Hide Dev Tools
         </button>
       </div>
-      <div>
-        <button onClick={() => setUserData([])}>reset data in state</button>
-      </div>
-      <div>
-        <button onClick={() => saveLocalStorageData(usersData, setUserData)}>
-          update localStorage data
-        </button>
-      </div>
-      <div>
-        <a
-          href={`data:text/json;charset=utf-8,${encodeURIComponent(
-            JSON.stringify(usersData)
-          )}`}
-          download={"bg3-game-data.json"}
-        >
-          download JSON data
-        </a>
-      </div>
-      <div>
-        <input type="file" accept=".json" onChange={handleFileChange} />
-      </div>
+      {!!currentLayout.devTools && (
+        <DevToolsWrapper>
+          <div>
+            <button onClick={() => setUserData(characterData)}>
+              update data in state
+            </button>
+          </div>
+          <div>
+            <button onClick={() => setUserData([])}>reset data in state</button>
+          </div>
+          <div>
+            <button
+              onClick={() => saveLocalStorageData(usersData, setUserData)}
+            >
+              update localStorage data
+            </button>
+          </div>
+          <div>
+            <a
+              href={`data:text/json;charset=utf-8,${encodeURIComponent(
+                JSON.stringify(usersData)
+              )}`}
+              download={"bg3-game-data.json"}
+            >
+              download JSON data
+            </a>
+          </div>
+          <div>
+            <input type="file" accept=".json" onChange={handleFileChange} />
+          </div>
+        </DevToolsWrapper>
+      )}
       <div>View Spells:</div>
       <ActivePaneWrapper>
         <button
@@ -135,6 +151,7 @@ const Main = (props) => {
         <SpellUpdater
           isVisible={currentLayout.spellUpdater}
           spellsArr={spellList}
+          updateSpellList={setSpellList}
         />
       </ActivePaneWrapper>
     </MainWrapper>
