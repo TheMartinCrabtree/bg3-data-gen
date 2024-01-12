@@ -100,6 +100,8 @@ function isUniqueSpellName(newSpell, existingSpells) {
 const SpellUpdater = (props) => {
   const { isVisible, spellsArr } = props;
   const [spellData, setSpellData] = useState(defaultSpellData);
+  const [formID, setFormID] = useState(crypto.randomUUID());
+  // const generatedKey = crypto.randomUUID();
   useEffect(() => {
     console.log("spellData", spellData);
   }, [spellData]);
@@ -129,11 +131,10 @@ const SpellUpdater = (props) => {
   const renderFields = () => {
     return (
       formDataArr &&
-      formDataArr.map((fieldData) => {
+      formDataArr.map((fieldData, index) => {
         const { labelText, dataLabel } = fieldData;
-        const generatedKey = crypto.randomUUID();
         return (
-          <FieldWrapper key={generatedKey}>
+          <FieldWrapper key={`${dataLabel}${formID}`}>
             <label>
               {`${labelText}:`}
               <input
