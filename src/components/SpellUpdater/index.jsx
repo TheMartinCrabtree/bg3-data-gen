@@ -89,8 +89,16 @@ const UpdaterWrapper = styled.div`
 
 const FieldWrapper = styled.div``;
 
+function isUniqueSpellName(newSpell, existingSpells) {
+  // validate spell does not exist before submitting
+  return !existingSpells.some(
+    (spell) =>
+      spell.spellName.toLowerCase() === newSpell.spellName.toLowerCase()
+  );
+}
+
 const SpellUpdater = (props) => {
-  const { isVisible } = props;
+  const { isVisible, spellsArr } = props;
   const [spellData, setSpellData] = useState(defaultSpellData);
   useEffect(() => {
     console.log("spellData", spellData);
@@ -107,8 +115,15 @@ const SpellUpdater = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!spellData.spellName) {
+      alert(`A spell name is required!`);
+      return;
+    }
+    console.log("Submitting form:", spellData);
     // Do something with the form data, e.g., send it to a server or perform validation
-    console.log("Form submitted:", spellData);
+    isUniqueSpellName(spellData, spellsArr)
+      ? console.log("ok to submit")
+      : alert(`The ${spellData.spellName} already exists!`);
   };
 
   const renderFields = () => {

@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useState, useEffect } from "react";
 import styled from "styled-components";
 import SpellUpdater from "../SpellUpdater";
 
@@ -53,11 +53,15 @@ const saveLocalStorageData = (data, updateCallback) => {
 };
 
 const Main = (props) => {
-  const [usersData, setUserData] = useState(getLocalStorageData);
+  const [usersData, setUserData] = useState([]);
   const [selected, setSelectedIndex] = useState(0);
   const [currentLayout, setCurrentLayout] = useState({
     spellUpdater: false,
   });
+  useEffect(() => {
+    console.log("initial load: checking local storage for data");
+    !usersData[0] && getLocalStorageData();
+  }, []);
 
   const _updateSelected = (indexVal) => {
     setSelectedIndex(indexVal);
@@ -128,7 +132,10 @@ const Main = (props) => {
         >
           Add Spell
         </button>
-        <SpellUpdater isVisible={currentLayout.spellUpdater} />
+        <SpellUpdater
+          isVisible={currentLayout.spellUpdater}
+          spellsArr={spellList}
+        />
       </ActivePaneWrapper>
     </MainWrapper>
   );
