@@ -62,10 +62,9 @@ const Main = (props) => {
     devTools: false,
     spellUpdater: false,
   });
-  console.log("currentLayout", currentLayout);
+
   console.log("spellList", spellList);
   useEffect(() => {
-    console.log("initial load: checking local storage for data");
     !usersData[0] && getLocalStorageData();
   }, []);
 
@@ -132,7 +131,15 @@ const Main = (props) => {
               )}`}
               download={"bg3-game-data.json"}
             >
-              download JSON data
+              download users JSON data
+            </a>
+            <a
+              href={`data:text/json;charset=utf-8,${encodeURIComponent(
+                JSON.stringify(spellList)
+              )}`}
+              download={"bg3-spell-data.json"}
+            >
+              download spell list JSON data
             </a>
           </div>
           <div>

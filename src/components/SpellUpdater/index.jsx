@@ -103,7 +103,6 @@ const SpellUpdater = (props) => {
       alert(`A spell name is required!`);
       return;
     }
-    console.log("Submitting form:", spellData);
     // Do something with the form data, e.g., send it to a server or perform validation
     isUniqueSpellName(spellData, spellsArr)
       ? updateSpellList([...spellsArr, spellData])
