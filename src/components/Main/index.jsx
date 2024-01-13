@@ -72,7 +72,7 @@ const Main = (props) => {
     setSelectedIndex(indexVal);
   };
 
-  const handleFileChange = (event) => {
+  const handleFileChange = (dataType, event) => {
     const file = event.target.files[0];
 
     if (file) {
@@ -81,7 +81,10 @@ const Main = (props) => {
       reader.onload = (e) => {
         try {
           const jsonData = JSON.parse(e.target.result);
-          setUserData(jsonData);
+          // quick and dirty
+          dataType === "usersData"
+            ? setUserData(jsonData)
+            : setSpellList(jsonData);
         } catch (error) {
           console.error("Error parsing JSON file:", error);
         }
@@ -142,6 +145,15 @@ const Main = (props) => {
               download spell list JSON data
             </a>
           </div>
+          Upload Users Data
+          <div>
+            <input
+              type="file"
+              accept=".json"
+              onChange={() => handleFileChange("usersData")}
+            />
+          </div>
+          Upload Spell List
           <div>
             <input type="file" accept=".json" onChange={handleFileChange} />
           </div>
