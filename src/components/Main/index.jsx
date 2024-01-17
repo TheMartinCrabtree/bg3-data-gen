@@ -73,7 +73,7 @@ const Main = (props) => {
   };
 
   const handleFileChange = (dataType, event) => {
-    const file = event.target.files[0];
+    const file = event && event.target && event.target.files[0];
 
     if (file) {
       const reader = new FileReader();
@@ -128,22 +128,26 @@ const Main = (props) => {
             </button>
           </div>
           <div>
-            <a
-              href={`data:text/json;charset=utf-8,${encodeURIComponent(
-                JSON.stringify(usersData)
-              )}`}
-              download={"bg3-game-data.json"}
-            >
-              download users JSON data
-            </a>
-            <a
-              href={`data:text/json;charset=utf-8,${encodeURIComponent(
-                JSON.stringify(spellList)
-              )}`}
-              download={"bg3-spell-data.json"}
-            >
-              download spell list JSON data
-            </a>
+            <div>
+              <a
+                href={`data:text/json;charset=utf-8,${encodeURIComponent(
+                  JSON.stringify(usersData)
+                )}`}
+                download={"bg3-game-data.json"}
+              >
+                download users JSON data
+              </a>
+            </div>
+            <div>
+              <a
+                href={`data:text/json;charset=utf-8,${encodeURIComponent(
+                  JSON.stringify(spellList)
+                )}`}
+                download={"bg3-spell-data.json"}
+              >
+                download spell list JSON data
+              </a>
+            </div>
           </div>
           Upload Users Data
           <div>

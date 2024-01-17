@@ -35,6 +35,10 @@ const formDataArr = [
     dataLabel: "spellHigherLevel",
   },
   {
+    labelText: "Spell Duration",
+    dataLabel: "spellDuration",
+  },
+  {
     labelText: "Spell Range",
     dataLabel: "spellRange",
   },
@@ -58,6 +62,7 @@ const defaultSpellData = {
   spellDamageType: "",
   savingThrow: "",
   spellHigherLevel: "",
+  spellDuration: "", // in rounds
   spellRange: "", // in feet
   spellRadius: "", // in feet
   spellInfo: "",
@@ -84,9 +89,9 @@ function isUniqueSpellName(newSpell, existingSpells) {
 const SpellUpdater = (props) => {
   const { isVisible, spellsArr, updateSpellList } = props;
   const [spellData, setSpellData] = useState(defaultSpellData);
-  useEffect(() => {
-    console.log("spellData", spellData);
-  }, [spellData]);
+  // useEffect(() => {
+  //   console.log("spellData", spellData);
+  // }, [spellData]);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
