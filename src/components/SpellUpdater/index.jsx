@@ -1,5 +1,6 @@
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import hexGen from "../Utilities/HexGen";
 
 const formDataArr = [
   {
@@ -109,9 +110,15 @@ const SpellUpdater = (props) => {
       return;
     }
     // Do something with the form data, e.g., send it to a server or perform validation
-    isUniqueSpellName(spellData, spellsArr)
-      ? updateSpellList([...spellsArr, spellData])
-      : alert(`The ${spellData.spellName} already exists!`);
+    if(isUniqueSpellName(spellData, spellsArr)){
+      spellData.spellID = spellData.spellName[0].toLocaleLowerCase() + hexGen();
+      return updateSpellList([...spellsArr, spellData]);
+    } else {
+      return alert(`The ${spellData.spellName} already exists!`);
+    }
+    // isUniqueSpellName(spellData, spellsArr)
+    //   ? updateSpellList([...spellsArr, spellData])
+    //   : alert(`The ${spellData.spellName} already exists!`);
   };
 
   const renderFields = () => {

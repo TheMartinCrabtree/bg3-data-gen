@@ -17,7 +17,7 @@ const characterData = [
 
 const defaultSpellList = [
   {
-    spellID: 1,
+    spellID: "A001",
     spellName: "Acid Splash",
     spellLevel: 0,
     spellSchool: "Conjuration",
