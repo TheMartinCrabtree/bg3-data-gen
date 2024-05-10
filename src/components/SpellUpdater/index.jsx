@@ -88,11 +88,8 @@ function isUniqueSpellName(newSpell, existingSpells) {
 }
 
 const SpellUpdater = (props) => {
-  const { isVisible, spellsArr, updateSpellList } = props;
+  const { isVisible, toggleVisible, spellsArr, updateSpellList } = props;
   const [spellData, setSpellData] = useState(defaultSpellData);
-  // useEffect(() => {
-  //   console.log("spellData", spellData);
-  // }, [spellData]);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -104,6 +101,7 @@ const SpellUpdater = (props) => {
   };
 
   const handleSubmit = (e) => {
+    console.log("event", e);
     e.preventDefault();
     if (!spellData.spellName) {
       alert(`A spell name is required!`);
@@ -112,14 +110,16 @@ const SpellUpdater = (props) => {
     // Do something with the form data, e.g., send it to a server or perform validation
     if(isUniqueSpellName(spellData, spellsArr)){
       spellData.spellID = spellData.spellName[0].toLocaleLowerCase() + hexGen();
+      toggleVisible("spellUpdater");
       return updateSpellList([...spellsArr, spellData]);
     } else {
       return alert(`The ${spellData.spellName} already exists!`);
     }
-    // isUniqueSpellName(spellData, spellsArr)
-    //   ? updateSpellList([...spellsArr, spellData])
-    //   : alert(`The ${spellData.spellName} already exists!`);
   };
+
+  const handleCancel =()=>{
+    return toggleVisible("spellUpdater");
+  }
 
   const renderFields = () => {
     return (
@@ -147,6 +147,7 @@ const SpellUpdater = (props) => {
   return (
     <UpdaterWrapper $isVisible={isVisible}>
       Spell Updater
+      <button onClick={handleCancel}>Cancel</button>
       <form onSubmit={handleSubmit}>
         {renderFields()}
         <button type="submit">Submit</button>

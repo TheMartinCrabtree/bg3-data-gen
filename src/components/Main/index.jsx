@@ -171,11 +171,18 @@ const Main = (props) => {
         >
           Add Spell
         </button>
-        <SpellUpdater
+        {(currentLayout.spellUpdater) && (<SpellUpdater
           isVisible={currentLayout.spellUpdater}
+          toggleVisible={toggleVisible}
           spellsArr={spellList}
           updateSpellList={setSpellList}
-        />
+        />) }
+        {/* <SpellUpdater
+          isVisible={currentLayout.spellUpdater}
+          toggleVisible={toggleVisible}
+          spellsArr={spellList}
+          updateSpellList={setSpellList}
+        /> */}
       </ActivePaneWrapper>
     </MainWrapper>
   );
