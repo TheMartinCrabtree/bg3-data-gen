@@ -101,7 +101,6 @@ const SpellUpdater = (props) => {
   };
 
   const handleSubmit = (e) => {
-    console.log("event", e);
     e.preventDefault();
     if (!spellData.spellName) {
       alert(`A spell name is required!`);

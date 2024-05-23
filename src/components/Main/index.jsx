@@ -63,7 +63,6 @@ const Main = (props) => {
     spellUpdater: false,
   });
 
-  console.log("spellList", spellList);
   useEffect(() => {
     !usersData[0] && getLocalStorageData();
   }, []);
@@ -177,12 +176,6 @@ const Main = (props) => {
           spellsArr={spellList}
           updateSpellList={setSpellList}
         />) }
-        {/* <SpellUpdater
-          isVisible={currentLayout.spellUpdater}
-          toggleVisible={toggleVisible}
-          spellsArr={spellList}
-          updateSpellList={setSpellList}
-        /> */}
       </ActivePaneWrapper>
     </MainWrapper>
   );
