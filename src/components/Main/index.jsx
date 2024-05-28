@@ -40,9 +40,15 @@ const MainWrapper = styled.div`
   padding: 2em;
 `;
 
-const DevToolsWrapper = styled.div``;
+const DevToolsWrapper = styled.div`
+  background-color: dimgray;
+  padding: 2em;
+`;
 
-const ActivePaneWrapper = styled.div``;
+const ActivePaneWrapper = styled.div`
+  background-color: teal;
+  padding: 2em;
+`;
 
 const getLocalStorageData = () => {
   let data = localStorage.getItem("bg3-game-data");
@@ -65,7 +71,7 @@ const Main = (props) => {
 
   useEffect(() => {
     !usersData[0] && getLocalStorageData();
-  }, []);
+  }, [usersData]);
 
   const _updateSelected = (indexVal) => {
     setSelectedIndex(indexVal);
@@ -170,12 +176,14 @@ const Main = (props) => {
         >
           Add Spell
         </button>
-        {(currentLayout.spellUpdater) && (<SpellUpdater
-          isVisible={currentLayout.spellUpdater}
-          toggleVisible={toggleVisible}
-          spellsArr={spellList}
-          updateSpellList={setSpellList}
-        />) }
+        {currentLayout.spellUpdater && (
+          <SpellUpdater
+            isVisible={currentLayout.spellUpdater}
+            toggleVisible={toggleVisible}
+            spellsArr={spellList}
+            updateSpellList={setSpellList}
+          />
+        )}
       </ActivePaneWrapper>
     </MainWrapper>
   );
