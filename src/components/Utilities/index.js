@@ -1,1 +1,1 @@
-export {default as hexGen } from "./HexGen";
+export { default as hexGen } from "./hexGen";

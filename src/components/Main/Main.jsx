@@ -1,6 +1,6 @@
 import React, { ReactNode, useState, useEffect } from "react";
 import styled from "styled-components";
-import SpellUpdater from "../SpellUpdater";
+import { SpellUpdater } from "../SpellUpdater";
 
 const characterData = [
   {

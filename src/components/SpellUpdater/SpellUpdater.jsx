@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import hexGen from "../Utilities/HexGen";
+import hexGen from "../Utilities/hexGen";
 
 const formDataArr = [
   {
@@ -107,7 +107,7 @@ const SpellUpdater = (props) => {
       return;
     }
     // Do something with the form data, e.g., send it to a server or perform validation
-    if(isUniqueSpellName(spellData, spellsArr)){
+    if (isUniqueSpellName(spellData, spellsArr)) {
       spellData.spellID = spellData.spellName[0].toLocaleLowerCase() + hexGen();
       toggleVisible("spellUpdater");
       return updateSpellList([...spellsArr, spellData]);
@@ -116,9 +116,9 @@ const SpellUpdater = (props) => {
     }
   };
 
-  const handleCancel =()=>{
+  const handleCancel = () => {
     return toggleVisible("spellUpdater");
-  }
+  };
 
   const renderFields = () => {
     return (
