@@ -168,6 +168,11 @@ const Main = (props) => {
           </div>
         </DevToolsWrapper>
       )}
+      <ActivePaneWrapper>
+        <div>Username</div>
+        <div>dropdown list of characters</div>
+        <div>character details pane that displays basic stats</div>
+      </ActivePaneWrapper>
       <div>View Spells:</div>
       <ActivePaneWrapper>
         <button
