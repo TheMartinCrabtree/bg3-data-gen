@@ -1,6 +1,7 @@
 import React, { ReactNode, useState, useEffect } from "react";
 import styled from "styled-components";
 import { SpellUpdater } from "../SpellUpdater";
+import { SpellViewer } from "../SpellViewer";
 
 const characterData = [
   {
@@ -110,11 +111,11 @@ const Main = (props) => {
 
   return (
     <MainWrapper>
-      <div>
+      <DevToolsWrapper>
         <button onClick={() => toggleVisible("devTools")}>
           Show/Hide Dev Tools
         </button>
-      </div>
+      </DevToolsWrapper>
       {!!currentLayout.devTools && (
         <DevToolsWrapper>
           <div>
@@ -168,11 +169,7 @@ const Main = (props) => {
           </div>
         </DevToolsWrapper>
       )}
-      <ActivePaneWrapper>
-        <div>Username</div>
-        <div>dropdown list of characters</div>
-        <div>character details pane that displays basic stats</div>
-      </ActivePaneWrapper>
+
       <div>View Spells:</div>
       <ActivePaneWrapper>
         <button
@@ -189,6 +186,15 @@ const Main = (props) => {
             updateSpellList={setSpellList}
           />
         )}
+      </ActivePaneWrapper>
+      <ActivePaneWrapper>
+        <div>Username</div>
+        <div>dropdown list of characters</div>
+        <div>character details pane that displays basic stats</div>
+      </ActivePaneWrapper>
+      <ActivePaneWrapper>
+        <div>Spells:</div>
+        <SpellViewer />
       </ActivePaneWrapper>
     </MainWrapper>
   );

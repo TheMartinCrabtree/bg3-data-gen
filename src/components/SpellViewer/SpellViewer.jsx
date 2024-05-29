@@ -56,10 +56,18 @@ const SpellViewer = (props) => {
         return true;
       }
     };
+    console.log("spellsData", spellsData);
+    // return (
+    //   spellsData &&
+    //   spellsData.map((spellData) => {
+    //     return <div>{`${spellData.spellName}`}</div>;
+    //   })
+    // );
 
-    spellsData &&
+    return (
+      spellsData &&
       spellsData.map((spellData) => {
-        const [
+        const {
           spellID,
           spellName,
           spellLevel,
@@ -72,9 +80,9 @@ const SpellViewer = (props) => {
           spellRange,
           spellRadius,
           spellInfo,
-        ] = spellData;
+        } = spellData;
         return (
-          <div key={spellID}>
+          <div key={`${spellID}-spellinfo`}>
             <AccordionButton>
               <AccordionButton onClick={togglePanel}>
                 {spellName}
@@ -90,7 +98,8 @@ const SpellViewer = (props) => {
             </AccordionButton>
           </div>
         );
-      });
+      })
+    );
   };
   return (
     <LayoutWrapper>
