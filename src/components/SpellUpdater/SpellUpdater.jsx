@@ -25,10 +25,11 @@ const UpdaterWrapper = styled.div`
   ${({ $isVisible }) => ($isVisible ? "" : `visibility: hidden;`)};
 `;
 
-const FieldWrapper = styled.div``;
+const FieldWrapper = styled.div`
+  padding: 1em 0;
+`;
 
 function isUniqueSpellName(newSpell, existingSpells) {
-  // validate spell does not exist before submitting
   return !existingSpells.some(
     (spell) =>
       spell.spellName.replace(/\s/g, "").toLowerCase() ===
@@ -85,7 +86,6 @@ const SpellUpdater = (props) => {
                 onChange={handleOnChange}
               />
             </label>
-            <br />
           </FieldWrapper>
         );
       })
