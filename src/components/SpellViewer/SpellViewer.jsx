@@ -1,20 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-
-const testData = [
-  {
-    spellID: "A001",
-    spellName: "Acid Splash",
-  },
-  {
-    spellID: "A002",
-    spellName: "Acid Sploosh",
-  },
-  {
-    spellID: "A003",
-    spellName: "Basic Splash",
-  },
-];
 
 const LayoutWrapper = styled.div``;
 const AccordionContainer = styled.div``;
@@ -42,31 +27,22 @@ const AccordionPanel = styled.div`
 `;
 
 const SpellViewer = (props) => {
-  const [spellsData, setSpellsData] = useState(testData);
+  const { spellList } = props;
   const [openPanels, setOpenPanels] = useState([]);
+  console.log("openPanels", openPanels);
 
   const renderAccordion = () => {
     const togglePanel = (spellID) => {
-      const spellIndex = spellID && openPanels.indexOf(spellID);
-      if (spellIndex > -1) {
-        setOpenPanels(openPanels.slice(spellIndex, 1));
-        return false;
+      if (openPanels.includes(spellID)) {
+        setOpenPanels(openPanels.filter((id) => id !== spellID));
       } else {
         setOpenPanels([...openPanels, spellID]);
-        return true;
       }
     };
-    console.log("spellsData", spellsData);
-    // return (
-    //   spellsData &&
-    //   spellsData.map((spellData) => {
-    //     return <div>{`${spellData.spellName}`}</div>;
-    //   })
-    // );
 
     return (
-      spellsData &&
-      spellsData.map((spellData) => {
+      spellList &&
+      spellList.map((spellData) => {
         const {
           spellID,
           spellName,
@@ -79,23 +55,23 @@ const SpellViewer = (props) => {
           spellHigherLevel,
           spellRange,
           spellRadius,
+          spellDuration,
           spellInfo,
         } = spellData;
+        const isOpen = openPanels.includes(spellID);
         return (
           <div key={`${spellID}-spellinfo`}>
-            <AccordionButton>
-              <AccordionButton onClick={togglePanel}>
-                {spellName}
-              </AccordionButton>
-              <AccordionPanel>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat.
-                </p>
-              </AccordionPanel>
+            <AccordionButton onClick={() => togglePanel(spellID)}>
+              {spellName}
             </AccordionButton>
+            {isOpen && (
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat.
+              </p>
+            )}
           </div>
         );
       })
@@ -103,7 +79,7 @@ const SpellViewer = (props) => {
   };
   return (
     <LayoutWrapper>
-      <AccordionContainer>{spellsData && renderAccordion()}</AccordionContainer>
+      <AccordionContainer>{spellList && renderAccordion()}</AccordionContainer>
     </LayoutWrapper>
   );
 };

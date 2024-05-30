@@ -2,6 +2,8 @@ import React, { ReactNode, useState, useEffect } from "react";
 import styled from "styled-components";
 import { SpellUpdater } from "../SpellUpdater";
 import { SpellViewer } from "../SpellViewer";
+import { CharacterViewer } from "../CharacterViewer";
+import defaultSpellList from "../../data/spelldata";
 
 const characterData = [
   {
@@ -13,24 +15,6 @@ const characterData = [
         level: 7,
       },
     ],
-  },
-];
-
-const defaultSpellList = [
-  {
-    spellID: "A001",
-    spellName: "Acid Splash",
-    spellLevel: 0,
-    spellSchool: "Conjuration",
-    spellAction: "Action",
-    spellDamage: "1d6",
-    spellDamageType: "Acid",
-    savingThrow: "Dexterity",
-    spellHigherLevel:
-      "Damage increases to 2d6 at level 5, and 3d6 at level 10.",
-    spellRange: 60, // in feet
-    spellRadius: 7, // in feet
-    spellInfo: "Throw a bubble of acid that damages each creature it hits.",
   },
 ];
 
@@ -62,7 +46,7 @@ const saveLocalStorageData = (data, updateCallback) => {
 };
 
 const Main = (props) => {
-  const [usersData, setUserData] = useState([]);
+  const [usersData, setUserData] = useState(characterData);
   const [spellList, setSpellList] = useState(defaultSpellList);
   const [selected, setSelectedIndex] = useState(0);
   const [currentLayout, setCurrentLayout] = useState({
@@ -188,13 +172,11 @@ const Main = (props) => {
         )}
       </ActivePaneWrapper>
       <ActivePaneWrapper>
-        <div>Username</div>
-        <div>dropdown list of characters</div>
-        <div>character details pane that displays basic stats</div>
+        <CharacterViewer />
       </ActivePaneWrapper>
       <ActivePaneWrapper>
         <div>Spells:</div>
-        <SpellViewer />
+        <SpellViewer spellList={spellList} />
       </ActivePaneWrapper>
     </MainWrapper>
   );
