@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { hexGen, spellPropertyKeys } from "../Utilities";
+import { hexGen, spellPropertyKeys, formOptions } from "../Utilities";
 
 const defaultSpellData = {
   spellID: "",
