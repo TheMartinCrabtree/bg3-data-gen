@@ -36,6 +36,10 @@ const spellPropertyKeys = [
     dataLabel: "spellDuration",
   },
   {
+    labelText: "Requires Concentration",
+    dataLabel: "concentration",
+  },
+  {
     labelText: "Spell Range",
     dataLabel: "spellRange",
   },

@@ -13,6 +13,7 @@ const defaultSpellData = {
   savingThrow: "",
   spellHigherLevel: "",
   spellDuration: "", // in rounds
+  concentration: "no",
   spellRange: "", // in feet
   spellRadius: "", // in feet
   spellInfo: "",
