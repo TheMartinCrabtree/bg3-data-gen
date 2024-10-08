@@ -19,7 +19,7 @@ const AccordionButton = styled.button`
   }
 `;
 const AccordionPanel = styled.div`
-  padding: 0 18px;
+  padding: 10px 10px;
   background-color: white;
   color: black;
   max-height: 400px;
@@ -29,6 +29,8 @@ const AccordionPanel = styled.div`
 // const FieldWrapper = styled.div`
 //   padding: 1em 0;
 // `;
+
+const StyledTable = styled.table`width: 100%`;
 
 const SpellViewer = (props) => {
   const { spellList } = props;
@@ -66,19 +68,35 @@ const SpellViewer = (props) => {
         } = spellData;
         const isOpen = openPanels.includes(spellID);
         return (
-          <div key={`${spellID}-spellinfo`}>
+          <AccordionContainer key={`${spellID}-spellinfo`}>
             <AccordionButton onClick={() => togglePanel(spellID)}>
               {spellName}
             </AccordionButton>
             {isOpen && (
               <AccordionPanel>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
+                <StyledTable>
+                  <tr>
+                    <td>Spell Level: {spellLevel}</td>
+                    <td>Spell School: {spellSchool}</td>
+                    <td>Action Type: {spellAction}</td>
+                  </tr>
+                  <tr>
+                  <td>Damage: {spellDamage ? spellDamage : "N/A"}</td>
+                  <td>Damage Type: {spellDamageType ? spellDamageType : "N/A"}</td>
+                  <td>Spell Duration: {spellDuration}</td>
+                  </tr>
+                  <tr>
+                  <td>Range: {spellRange}</td>
+                  <td>Spell Radius: {spellRadius}</td>
+                  <td>Saving Throw: {savingThrow}</td>
+                  </tr>
+                </StyledTable>
+                <p>Bonuses at higher levels: {spellHigherLevel}</p>
+                <p>Spell Info: {spellInfo}</p>
+                
               </AccordionPanel>
             )}
-          </div>
+          </AccordionContainer>
         );
       })
     );
