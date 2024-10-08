@@ -29,13 +29,17 @@ const AccordionPanel = styled.div`
 // const FieldWrapper = styled.div`
 //   padding: 1em 0;
 // `;
+const TextBoxWrapper = styled.div`padding: 5px;`;
+const TextBox = styled.div`
+  background-color: lightgray;
+  border-radius: 5px;
+`
 
 const StyledTable = styled.table`width: 100%`;
 
 const SpellViewer = (props) => {
   const { spellList } = props;
   const [openPanels, setOpenPanels] = useState([]);
-  console.log("openPanels", openPanels);
 
 
 
@@ -64,6 +68,7 @@ const SpellViewer = (props) => {
           spellRange,
           spellRadius,
           spellDuration,
+          concentration,
           spellInfo,
         } = spellData;
         const isOpen = openPanels.includes(spellID);
@@ -83,16 +88,20 @@ const SpellViewer = (props) => {
                   <tr>
                   <td>Damage: {spellDamage ? spellDamage : "N/A"}</td>
                   <td>Damage Type: {spellDamageType ? spellDamageType : "N/A"}</td>
-                  <td>Spell Duration: {spellDuration}</td>
+                  <td>Saving Throw: {savingThrow ? savingThrow : "N/A"}</td>
                   </tr>
                   <tr>
-                  <td>Range: {spellRange}</td>
-                  <td>Spell Radius: {spellRadius}</td>
-                  <td>Saving Throw: {savingThrow}</td>
+                  <td>Spell Duration: {spellDuration ? spellDuration : "N/A"}</td>
+                  <td>Requires Concentration: {concentration ? concentration : "N/A"}</td>
+                  </tr>
+                  <tr>
+                  <td>Range: {spellRange ? spellRange : "N/A"}</td>
+                  <td>Spell Radius: {spellRadius ? spellRadius : "N/A"}</td>
+                  
                   </tr>
                 </StyledTable>
-                <p>Bonuses at higher levels: {spellHigherLevel}</p>
-                <p>Spell Info: {spellInfo}</p>
+                {TextBox && (<TextBoxWrapper><TextBox>Bonuses at higher levels: {spellHigherLevel}</TextBox></TextBoxWrapper>)}
+                <TextBoxWrapper><TextBox>Spell Info: {spellInfo}</TextBox></TextBoxWrapper>
                 
               </AccordionPanel>
             )}
