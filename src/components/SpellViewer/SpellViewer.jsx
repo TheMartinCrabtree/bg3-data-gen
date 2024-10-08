@@ -21,15 +21,21 @@ const AccordionButton = styled.button`
 const AccordionPanel = styled.div`
   padding: 0 18px;
   background-color: white;
-  max-height: 0;
+  color: black;
+  max-height: 400px;
   overflow: hidden;
   transition: max-height 0.2s ease-out;
 `;
+// const FieldWrapper = styled.div`
+//   padding: 1em 0;
+// `;
 
 const SpellViewer = (props) => {
   const { spellList } = props;
   const [openPanels, setOpenPanels] = useState([]);
   console.log("openPanels", openPanels);
+
+
 
   const renderAccordion = () => {
     const togglePanel = (spellID) => {
@@ -65,12 +71,12 @@ const SpellViewer = (props) => {
               {spellName}
             </AccordionButton>
             {isOpen && (
-              <p>
+              <AccordionPanel>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                 enim ad minim veniam, quis nostrud exercitation ullamco laboris
                 nisi ut aliquip ex ea commodo consequat.
-              </p>
+              </AccordionPanel>
             )}
           </div>
         );

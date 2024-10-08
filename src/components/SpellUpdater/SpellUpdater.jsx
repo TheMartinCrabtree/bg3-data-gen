@@ -78,7 +78,7 @@ const SpellUpdater = (props) => {
         return (
           <FieldWrapper key={`${dataLabel}${index}`}>
             <label>
-              {`${labelText}:`}
+              {`${labelText}: `}
               <input
                 type="text"
                 name={dataLabel}
