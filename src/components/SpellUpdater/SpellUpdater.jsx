@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useId} from "react";
 import styled from "styled-components";
 import { hexGen, spellPropertyKeys, formOptions } from "../Utilities";
 
@@ -76,16 +76,24 @@ const SpellUpdater = (props) => {
       spellPropertyKeys &&
       spellPropertyKeys.map((fieldData, index) => {
         const { labelText, dataLabel } = fieldData;
+        const isDropdown = formOptions && formOptions.spellUpdater && formOptions.spellUpdater[dataLabel];
+        const renderDropdown = () =>{
+          return isDropdown && formOptions.spellUpdater[dataLabel].map((optionText, index)=>{
+            return <option key={`${optionText}-${index}`} value={optionText}>{optionText}</option>;
+          });
+
+        }
         return (
           <FieldWrapper key={`${dataLabel}${index}`}>
             <label>
               {`${labelText}: `}
-              <input
+              {isDropdown ? (<select onChange={handleOnChange} defaultValue={formOptions.spellUpdater[dataLabel][0]}>{renderDropdown()}</select>) : (<input
                 type="text"
                 name={dataLabel}
                 value={spellData.dataLabel}
                 onChange={handleOnChange}
-              />
+              />)}
+              
             </label>
           </FieldWrapper>
         );

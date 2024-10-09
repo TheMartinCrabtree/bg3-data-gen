@@ -48,7 +48,7 @@ const formOptions = {
       "50 ft",
       "120 ft",
     ],
-    spellRadius: ["N/A", "5ft", "10ft", "15ft", "30ft", "50ft", "120ft"],
+    spellRadius: ["N/A", "5 ft", "10 ft", "15 ft", "30 ft", "50 ft", "120 ft"],
     spellDuration: [
       "N/A",
       "1 round",
