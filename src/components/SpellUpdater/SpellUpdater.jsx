@@ -38,7 +38,7 @@ function isUniqueSpellName(newSpell, existingSpells) {
   );
 }
 
-const SpellUpdater = (props) => {
+const SpellUpdater = (props) => { 
   const { isVisible, toggleVisible, spellsArr, updateSpellList } = props;
   const [spellData, setSpellData] = useState(defaultSpellData);
 

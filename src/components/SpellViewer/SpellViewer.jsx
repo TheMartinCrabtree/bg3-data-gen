@@ -36,9 +36,11 @@ const TextBox = styled.div`
 `
 
 const StyledTable = styled.table`width: 100%`;
+const EditButtonWrapper = styled.div``;
+const EditButton = styled.button``;
 
 const SpellViewer = (props) => {
-  const { spellList } = props;
+  const { spellList, setSpellEditID } = props;
   const [openPanels, setOpenPanels] = useState([]);
 
 
@@ -80,6 +82,7 @@ const SpellViewer = (props) => {
             {isOpen && (
               <AccordionPanel>
                 <StyledTable>
+                  <tbody>
                   <tr>
                     <td>Spell Level: {spellLevel}</td>
                     <td>Spell School: {spellSchool}</td>
@@ -99,9 +102,11 @@ const SpellViewer = (props) => {
                   <td>Spell Radius: {spellRadius ? spellRadius : "N/A"}</td>
                   
                   </tr>
+                  </tbody>
                 </StyledTable>
                 {TextBox && (<TextBoxWrapper><TextBox>Bonuses at higher levels: {spellHigherLevel}</TextBox></TextBoxWrapper>)}
                 <TextBoxWrapper><TextBox>Spell Info: {spellInfo}</TextBox></TextBoxWrapper>
+                <EditButtonWrapper><EditButton onClick={()=>setSpellEditID(spellID)}>Edit</EditButton></EditButtonWrapper>
                 
               </AccordionPanel>
             )}

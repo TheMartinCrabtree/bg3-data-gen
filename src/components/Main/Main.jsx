@@ -49,10 +49,21 @@ const Main = (props) => {
   const [usersData, setUserData] = useState(characterData);
   const [spellList, setSpellList] = useState(defaultSpellList);
   const [selected, setSelectedIndex] = useState(0);
+  // would be good to use redux or context to manage spell CRUD
+  const [spellEditID, setSpellEditID] = useState(null);
+  // add option to hide spell list while updating
   const [currentLayout, setCurrentLayout] = useState({
     devTools: false,
     spellUpdater: false,
+    spellList: true,
   });
+  
+  useEffect(()=>{
+    spellEditID && !currentLayout.spellUpdater && setCurrentLayout({...currentLayout,
+      spellUpdater: true});
+    console.log("spellEditID", spellEditID);
+
+  }, [currentLayout, spellEditID])
 
   useEffect(() => {
     !usersData[0] && getLocalStorageData();
@@ -91,6 +102,7 @@ const Main = (props) => {
         ...currentLayout,
         [toggledElement]: !currentLayout[toggledElement],
       });
+    toggledElement && currentLayout.spellUpdater && setSpellEditID(null);
   };
 
   return (
@@ -176,7 +188,7 @@ const Main = (props) => {
       </ActivePaneWrapper>
       <ActivePaneWrapper>
         <div>Spells:</div>
-        <SpellViewer spellList={spellList} />
+        <SpellViewer spellList={spellList} setSpellEditID={setSpellEditID} />
       </ActivePaneWrapper>
     </MainWrapper>
   );
